@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+{% block title %}ADD{% endblock %}
+
+{% block content %}
+{{ form_start(form) }}
+{{ form_row(form)}}    
+   <div class="col-md-12 d-block mt-2 text-center">
+                    <button type="submit" class="btn btn-lg btn-success">
+                        <i class="ti-save"></i> &nbsp;Enregistrer
+                    </button>
+                </div>
+{{ form_end(form) }}
+{% endblock %}
