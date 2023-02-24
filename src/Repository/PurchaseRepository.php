@@ -39,6 +39,8 @@ class PurchaseRepository extends ServiceEntityRepository
         }
     }
 
+
+ 
 //    /**
 //     * @return Purchase[] Returns an array of Purchase objects
 //     */

@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+{% block title %}ADD{% endblock %}
+
+{% block content %}
+{{ form_start(form) }}
+  
+{{ form_row(form.client) }}
+
+{{ form_row(form.paymentMethod) }}
+
+{{ form_row(form.date) }}
+
+<ul id="product-fields-list"
+        data-prototype="{{ form_widget(form.product.vars.prototype)|e }}"
+        data-widget-tags="{{ '<li></li>'|e }}"
+        data-widget-counter="{{ form.product|length }}">
+    {% for productfield in form.product %}
+        <li>
+            {{ form_errors(productfield) }}
+            {{ form_widget(productfield) }}
+        </li>
+    {% endfor %}
+</ul>
+
+<button type="button"
+        class="add-another-collection-widget"
+        data-list-selector="#product-fields-list">Add another product</button>
+   <div class="col-md-12 d-block mt-2 text-center">
+                    <button type="submit" class="btn btn-lg btn-success">
+                        <i class="ti-save"></i> &nbsp;Enregistrer
+                    </button>
+                </div>
+{{ form_end(form) }}
+
+
+<script>
+
+jQuery(document).ready(function () {
+ 
+    jQuery('.add-another-collection-widget').click(function (e) {
+        var list = jQuery(jQuery(this).attr('data-list-selector'));
+        
+        var counter = list.data('widget-counter') || list.children().length;
+
+        var newWidget = list.attr('data-prototype');
+        
+        newWidget = newWidget.replace(/__name__/g, counter);
+        
+        counter++;
+        
+        list.data('widget-counter', counter);
+
+   
+        var newElem = jQuery(list.attr('data-widget-tags')).html(newWidget);
+        newElem.appendTo(list);
+    });
+});
+
+</script>
+{% endblock %}

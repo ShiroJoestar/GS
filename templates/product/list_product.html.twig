@@ -15,7 +15,7 @@
                         <div class="input-group input-group-sm mb-3 ">
                                 <div class="input-group-prepend">
                                     <button class="btn btn-success" type="button">
-                                    <i class="fas fa-search fa-sm"></i>
+                                    <i class="ti-search"></i>
                                     </button>
                                 </div>
                                 <input type="text" id="search-input" placeholder="Search" class="border border-success">
@@ -44,7 +44,7 @@
                     <tr>
                         <th>Nom</th>
                         <th>description</th>
-                        <th>Price</th>
+                        <th>Prix</th>
 
                         
                         
@@ -134,5 +134,29 @@
         </div>
     </div>
 </div>    
+ <script>
+ 
 
+                    document.getElementById("search-input").addEventListener("keyup", function() {
+                        let input = this.value.toLowerCase();
+                        let rows = document.getElementById("table-id").getElementsByTagName("tr");
+
+                        for (let i = 0; i < rows.length; i++) {
+                            let cells = rows[i].getElementsByTagName("td");
+                            let found = false;
+
+                            for (let j = 0; j < cells.length; j++) {
+                                if (cells[j].innerHTML.toLowerCase().indexOf(input) > -1) {
+                                    found = true;
+                                }
+                            }
+
+                            if (found) {
+                                rows[i].style.display = "";
+                            } else {
+                                rows[i].style.display = "none";
+                            }
+                        }
+                    });
+</script>      
 {% endblock %}

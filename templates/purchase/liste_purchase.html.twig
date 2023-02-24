@@ -1,33 +1,33 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ClientController!{% endblock %}
+{% block title %}LISTE PURCHASE{% endblock %}
 
 {% block content %}
-                                     <div class="row">
+    <div class="row">
         <div class="col-md-12">
             <div class="bgc-white bd bdrs-3 p-20 mB-20">
                 <div class="row gap-3">
                     
                     <div class="col-md-6">
-                        <h4 class="c-grey-900 mB-20">Liste des entrers</h4>
+                        <h4 class="c-grey-900 mB-20">Liste des commandes</h4>
                         
 
                         <div class="input-group input-group-sm mb-3 ">
                                 <div class="input-group-prepend">
-                                    <button class="btn btn-success" type="button">
+                                    <button class="btn btn-warning" type="button">
                                     <i class="ti-search"></i>
                                     </button>
                                 </div>
-                                <input type="text" id="search-input" placeholder="Search" class="border border-success">
+                                <input type="text" id="search-input" placeholder="Search" class="border border-warning">
                         </div>
                         
                     </div>
                         <div class="col-md-6 text-left">
-                       <a href="{{ path("create_client")}}" class="btn btn-success btn-sm btn-icon-split btn-lg">
+                       <a href="{{ path("create_purchase")}}" class="btn btn-warning btn-sm btn-icon-split btn-lg">
                                         <span class="icon text-white-50">
                                             <i class="fas fa-flag"></i>
                                         </span>
-                                        <span class="text">Enregistrer un client</span>
+                                        <span class="text">Ajouter une commande</span>
                                     </a>
 
                     
@@ -42,30 +42,43 @@
                         
                     <thead class="t-9">
                     <tr>
-                        <th>Nom</th>
-                        <th>Adresse</th>
-                        <th>Telephone</th>
-                        
+                        <th>client</th>
+                        <th>Total</th>
+                        <th>produit</th>
+                        <th>Moyen de payment</th>
                         
                         
                     </tr>
                     </thead>
                     <tfoot>
                     <tr>
-                      <th>Nom</th>
-                        <th>Adresse</th>
-                        <th>Telephone</th>
+                         <th>client</th>
+                        <th>Total</th>
+                        <th>produit</th>
+                        <th>Moyen de payment</th>
+                        
                         
                     </tr>
                     </tfoot>
                     <tbody id="table-id">
-                    {% for client in clients %}
+                    {% for purchase in purchases %}
                         <tr>
-                            <td class="open-pdf">{{ client.name }}</td> 
+                            <td class="open-pdf">{{ purchase.client.name }}</td> 
                             
                             
-                            <td>{{ client.adress }} </td>
-                            <td>{{ client.telephone }}</td>
+                            <td>{{ purchase.total }} Ar</td>
+                            <td>
+                                <ul>
+                                    {% for pupu in purchase.product %}
+                                        
+                                            <li>
+                                                {{ pupu.name}}
+                                            </li>
+                                    {% endfor %}     
+                                            
+                                </ul>
+                            </td>
+                            <td>{{ purchase.paymentMethod }}</td>
                        
                         </tr>
                     {% endfor %}
@@ -101,4 +114,6 @@
                         }
                     });
 </script>      
+
+
 {% endblock %}
