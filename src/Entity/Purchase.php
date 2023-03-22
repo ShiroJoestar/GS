@@ -34,9 +34,16 @@ class Purchase
     #[ORM\ManyToMany(targetEntity: Product::class, inversedBy: 'purchases')]
     private Collection $product;
 
+    #[ORM\Column]
+    private ?bool $status = null;
+
+    #[ORM\ManyToMany(targetEntity: QuantityProduct::class, mappedBy: 'purchase')]
+    private Collection $quantityProducts;
+
     public function __construct()
     {
         $this->product = new ArrayCollection();
+        $this->quantityProducts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -124,6 +131,45 @@ class Purchase
     public function removeProduct(Product $product): self
     {
         $this->product->removeElement($product);
+
+        return $this;
+    }
+
+    public function isStatus(): ?bool
+    {
+        return $this->status;
+    }
+
+    public function setStatus(bool $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, QuantityProduct>
+     */
+    public function getQuantityProducts(): Collection
+    {
+        return $this->quantityProducts;
+    }
+
+    public function addQuantityProduct(QuantityProduct $quantityProduct): self
+    {
+        if (!$this->quantityProducts->contains($quantityProduct)) {
+            $this->quantityProducts->add($quantityProduct);
+            $quantityProduct->addPurchase($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQuantityProduct(QuantityProduct $quantityProduct): self
+    {
+        if ($this->quantityProducts->removeElement($quantityProduct)) {
+            $quantityProduct->removePurchase($this);
+        }
 
         return $this;
     }

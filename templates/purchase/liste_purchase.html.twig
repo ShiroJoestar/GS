@@ -46,7 +46,8 @@
                         <th>Total</th>
                         <th>produit</th>
                         <th>Moyen de payment</th>
-                        
+                        <th>Statut</th>
+                        <th>Action</th>
                         
                     </tr>
                     </thead>
@@ -56,14 +57,15 @@
                         <th>Total</th>
                         <th>produit</th>
                         <th>Moyen de payment</th>
-                        
+                        <th>Statut</th>
+                        <th>Action</th>
                         
                     </tr>
                     </tfoot>
                     <tbody id="table-id">
                     {% for purchase in purchases %}
                         <tr>
-                            <td class="open-pdf">{{ purchase.client.name }}</td> 
+                            <td>{{ purchase.client.name }}</td> 
                             
                             
                             <td>{{ purchase.total }} Ar</td>
@@ -73,13 +75,46 @@
                                         
                                             <li>
                                                 {{ pupu.name}}
+                                                
                                             </li>
-                                    {% endfor %}     
+                                    {% endfor %}   
+                                    <!--{% for item in purchase.quantityProducts %}
+                                        
+                                                 {{item.nombre}}
+                                                
                                             
+                                                     
+                                    {% endfor %}  
+                                            --> 
                                 </ul>
                             </td>
                             <td>{{ purchase.paymentMethod }}</td>
-                       
+                            {% if purchase.status == false %}
+                            <td>
+                                
+                                    
+                                    <button type="button" name="" id="confirm_button" onclick="updatePurchase('{{ purchase.id }}')" class="btn btn-primary ">
+                                            Confirmer la commande
+                                    </button>
+                            </td>
+                            
+                            {% elseif purchase.status == true %}
+                            <td>
+                                
+                                    Vair
+                            </td>
+                            {% else %}
+                               <td>
+                                
+                                    Not defined
+                            </td>
+                            {% endif %}
+                            <td>
+                                <button type="button" name="" id="confirm_button" onclick="window.open('{{ path('print_purchase', {'id': purchase.id}) }}')" class="btn btn-outline-info btn-icon-text">
+                                            Imprimer la facture
+                                            <i class="ti-printer btn-icon-append" aria-hidden="true"></i>
+                                    </button>
+                            </td>
                         </tr>
                     {% endfor %}
                     </tbody>
@@ -113,6 +148,45 @@
                             }
                         }
                     });
+
+
+
+
+
+                     const updateButton = document.getElementById('confirm_button');
+
+    function updatePurchase(purchaseId) {
+    
+  // Get the value you want to update the purchase entity with
+  var newValue = purchaseId;
+
+  // Send an AJAX request to the controller to update the purchase entity
+  var xhr = new XMLHttpRequest();
+  console.log("ozdaoefaef");
+  xhr.open("POST", "/confirmCommande/" + purchaseId);
+  xhr.setRequestHeader("Content-Type", "application/json");
+  xhr.onload = function () {
+    if (xhr.status === 200) {
+      // Update the button text
+      var button = document.querySelector("button[data-purchase-id='" + purchaseId + "']");
+      button.innertext = "vita";
+      
+    } else {
+      console.log("Something went wrong");
+    }
+  };
+  xhr.send(JSON.stringify({ newValue: newValue }));
+}
+
+
+            $(document).ready(function() {
+                                
+                                $('#dataTable').DataTable({
+        
+                                 "searching": false
+                                });
+                                
+            });
 </script>      
 
 

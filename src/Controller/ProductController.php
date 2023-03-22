@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Product;
+use App\Entity\Stock;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
+use DateTimeZone;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -62,7 +64,17 @@ class ProductController extends AbstractController
 
             }
            
+            $product->setCreatedAt(new \DateTime);
+            $product->setUpdatedAt(new \DateTime("now", new DateTimeZone('Europe/Moscow')));
             $entityManager->persist($product);
+
+
+            $stock = new Stock();
+
+            $stock->setProduct($product);
+            $stock->setQuantity(0);
+            $stock->setUpdatedAt(new \DateTimeImmutable("now", new DateTimeZone('Europe/Moscow')));
+            $entityManager->persist($stock);
             $entityManager->flush();
 
             return $this->redirectToRoute('app_product');

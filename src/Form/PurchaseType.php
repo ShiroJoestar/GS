@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Client;
 use App\Entity\Purchase;
+use PhpParser\Node\Stmt\Label;
 use Symfony\Component\Form\AbstractType;
 use App\Form\EchantillonProductType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -29,7 +30,8 @@ class PurchaseType extends AbstractType
             ->add('product', CollectionType::class, [
                 'entry_type' => EchantillonProductType::class,
                 'allow_add' => true,
-                'prototype' => true
+                'prototype' => true,
+                
             ])
         ;
     }

@@ -2,12 +2,26 @@
 {% block title %}ADD{% endblock %}
 
 {% block content %}
-{{ form_start(form) }}
-{{ form_row(form)}}    
-   <div class="col-md-12 d-block mt-2 text-center">
-                    <button type="submit" class="btn btn-lg btn-success">
+{{ form_start(form, { 'attr' : { 'class' : 'form-sample' }}) }}
+        <div class="row">
+                <div class="col-md-6">
+                        <div class="bd mb-1 bgc-white p-20 sk-bd">
+                            <h4>Insertion client</h4>
+                            {{ form_label(form.name) }}
+                            {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_label(form.description) }}
+                            {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_label(form.price) }}
+                            {{ form_widget(form.price, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_label(form.image) }}
+                            {{ form_widget(form.image, {'attr': {'class': 'form-control'}}) }}
+                            
+                        </div>   
+                </div>                  
+        </div>
+   
+                    <button type="submit" class="btn btn-warning mr-2">
                         <i class="ti-save"></i> &nbsp;Enregistrer
                     </button>
-                </div>
 {{ form_end(form) }}
 {% endblock %}

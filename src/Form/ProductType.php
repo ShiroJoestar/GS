@@ -21,8 +21,8 @@ class ProductType extends AbstractType
                 'mapped' => false, // tell Symfony to not try to map this field to an entity property
                 'required' => false, // not required, so the user can skip uploading an image
             ])
-            ->add('createdAt')
-            ->add('updatedAt')
+            
+            
         ;
     }
 

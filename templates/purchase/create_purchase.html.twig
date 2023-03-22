@@ -2,32 +2,42 @@
 {% block title %}ADD{% endblock %}
 
 {% block content %}
-{{ form_start(form) }}
-  
-{{ form_row(form.client) }}
+{{ form_start(form, { 'attr' : { 'class' : 'form-sample' }}) }}
+  <div class="row">
+                <div class="col-md-6">
+                        <div class="bd mb-1 bgc-white p-20 sk-bd">
+                            <h4>Insertion client</h4>
+                            {{ form_label(form.client) }}
+                            {{ form_widget(form.client, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_label(form.paymentMethod) }}
+                            {{ form_widget(form.paymentMethod, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_label(form.date) }}
+                            {{ form_widget(form.date, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_label(form.product) }}
 
-{{ form_row(form.paymentMethod) }}
+                            <ul id="product-fields-list"
+                                        data-prototype="{{ form_widget(form.product.vars.prototype)|e }}"
+                                        data-widget-tags="{{ '<li></li>'|e }}"
+                                        data-widget-counter="{{ form.product|length }}">
+                                    {% for productfield in form.product %}
+                                        <li>
+                                            {{ form_errors(productfield) }}
+                                            
+                                            {{ form_row(productfield, {'attr': {'class': 'form-control'}}) }}
+                                        </li>
+                                    {% endfor %}
+                            </ul>
+                        </div>   
+                </div>                  
+        </div>
 
-{{ form_row(form.date) }}
-
-<ul id="product-fields-list"
-        data-prototype="{{ form_widget(form.product.vars.prototype)|e }}"
-        data-widget-tags="{{ '<li></li>'|e }}"
-        data-widget-counter="{{ form.product|length }}">
-    {% for productfield in form.product %}
-        <li>
-            {{ form_errors(productfield) }}
-            {{ form_widget(productfield) }}
-        </li>
-    {% endfor %}
-</ul>
 
 <button type="button"
-        class="add-another-collection-widget"
-        data-list-selector="#product-fields-list">Add another product</button>
+        class="add-another-collection-widget btn btn-primary"
+        data-list-selector="#product-fields-list">Ajouter un nouveau produit</button>
    <div class="col-md-12 d-block mt-2 text-center">
-                    <button type="submit" class="btn btn-lg btn-success">
-                        <i class="ti-save"></i> &nbsp;Enregistrer
+                    <button type="submit" class="btn btn-lg btn-warning">
+                        <i class="ti-save"></i> Enregistrer
                     </button>
                 </div>
 {{ form_end(form) }}

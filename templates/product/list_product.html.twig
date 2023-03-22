@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ClientController!{% endblock %}
+{% block title %}LIST PRODUCT{% endblock %}
 
 {% block content %}
  <div class="row">
@@ -9,7 +9,7 @@
                 <div class="row gap-3">
                     
                     <div class="col-md-6">
-                        <h4 class="c-grey-900 mB-20">Liste des entrers</h4>
+                        <h4 class="c-grey-900 mB-20">Liste des produits</h4>
                         
 
                         <div class="input-group input-group-sm mb-3 ">
@@ -18,7 +18,7 @@
                                     <i class="ti-search"></i>
                                     </button>
                                 </div>
-                                <input type="text" id="search-input" placeholder="Search" class="border border-success">
+                                <input type="text" id="search-input" placeholder="Recherche" class="border border-success">
                         </div>
                         
                     </div>
@@ -27,7 +27,7 @@
                                         <span class="icon text-white-50">
                                             <i class="fas fa-flag"></i>
                                         </span>
-                                        <span class="text">Enregistrer un client</span>
+                                        <span class="text">Inserer un nouveau produit</span>
                                     </a>
 
                     
@@ -87,9 +87,9 @@
                     <div class="carousel-item active">
                         <div class="row">
                             <div class="col-md-12 col-xl-6 col-lg-6 d-flex flex-column justify-content-start">
-                            "Always Check if the User is Logged In It's important to check if the user is authenticated first. If they're not, $user will either be null or the string anon.. Wait, what? Yes, this is a quirk. If you're not logged in, the user is technically the string anon., though the getUser() controller shortcut converts this to null for convenience." symfony.com/doc/3.4/… – 
-                                Kim
-                                Sep 23, 2018 at 10:20 
+                                <h1 class="carousel-title">
+                                    Voici les produits que nous possedons
+                                </h1>
                             </div>
                         </div>
                       </div>
@@ -134,6 +134,7 @@
         </div>
     </div>
 </div>    
+
  <script>
  
 
@@ -157,6 +158,17 @@
                                 rows[i].style.display = "none";
                             }
                         }
+                    
                     });
+
+
+                            $(document).ready(function() {
+                                
+                                $('#dataTable').DataTable({
+        
+                                 "searching": false
+                                });
+                                
+                            });
 </script>      
 {% endblock %}

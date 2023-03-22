@@ -9,7 +9,7 @@
                 <div class="row gap-3">
                     
                     <div class="col-md-6">
-                        <h4 class="c-grey-900 mB-20">Liste des entrers</h4>
+                        <h4 class="c-grey-900 mB-20">Liste des stocks</h4>
                         
 
                         <div class="input-group input-group-sm mb-3 ">
@@ -23,11 +23,11 @@
                         
                     </div>
                         <div class="col-md-6 text-left">
-                       <a href="{{ path("create_client")}}" class="btn btn-success btn-sm btn-icon-split btn-lg">
+                       <a href="{{ path("create_stock")}}" class="btn btn-success btn-sm btn-icon-split">
                                         <span class="icon text-white-50">
                                             <i class="fas fa-flag"></i>
                                         </span>
-                                        <span class="text">Enregistrer un client</span>
+                                        <span class="text">Restockage</span>
                                     </a>
 
                     
@@ -42,30 +42,23 @@
                         
                     <thead class="t-9">
                     <tr>
-                        <th>Nom</th>
-                        <th>Adresse</th>
-                        <th>Telephone</th>
+                        <th>Produit</th>
+                        <th>quantité</th>
+                        
                         
                         
                         
                     </tr>
                     </thead>
-                    <tfoot>
-                    <tr>
-                      <th>Nom</th>
-                        <th>Adresse</th>
-                        <th>Telephone</th>
-                        
-                    </tr>
-                    </tfoot>
+                    
                     <tbody id="table-id">
-                    {% for client in clients %}
+                    {% for product in products %}
                         <tr>
-                            <td class="open-pdf">{{ client.name }}</td> 
+                            <td class="open-pdf">{{ product.product.name }}</td> 
                             
                             
-                            <td>{{ client.adress }} </td>
-                            <td>{{ client.telephone }}</td>
+                            <td>{{ product.quantity }} </td>
+                            
                        
                         </tr>
                     {% endfor %}
@@ -100,14 +93,5 @@
                             }
                         }
                     });
-
-                    $(document).ready(function() {
-                                
-                                $('#dataTable').DataTable({
-        
-                                 "searching": false
-                                });
-                                
-                            });
 </script>      
 {% endblock %}

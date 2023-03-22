@@ -50,9 +50,17 @@ class Product
     #[ORM\ManyToMany(targetEntity: Purchase::class, mappedBy: 'product')]
     private Collection $purchases;
 
+    #[ORM\ManyToMany(targetEntity: QuantityProduct::class, mappedBy: 'product')]
+    private Collection $quantityProducts;
+
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: Stock::class)]
+    private Collection $stocks;
+
     public function __construct()
     {
         $this->purchases = new ArrayCollection();
+        $this->quantityProducts = new ArrayCollection();
+        $this->stocks = new ArrayCollection();
     }
 
 
@@ -179,6 +187,63 @@ class Product
     {
         if ($this->purchases->removeElement($purchase)) {
             $purchase->removeProduct($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, QuantityProduct>
+     */
+    public function getQuantityProducts(): Collection
+    {
+        return $this->quantityProducts;
+    }
+
+    public function addQuantityProduct(QuantityProduct $quantityProduct): self
+    {
+        if (!$this->quantityProducts->contains($quantityProduct)) {
+            $this->quantityProducts->add($quantityProduct);
+            $quantityProduct->addProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQuantityProduct(QuantityProduct $quantityProduct): self
+    {
+        if ($this->quantityProducts->removeElement($quantityProduct)) {
+            $quantityProduct->removeProduct($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Stock>
+     */
+    public function getStocks(): Collection
+    {
+        return $this->stocks;
+    }
+
+    public function addStock(Stock $stock): self
+    {
+        if (!$this->stocks->contains($stock)) {
+            $this->stocks->add($stock);
+            $stock->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStock(Stock $stock): self
+    {
+        if ($this->stocks->removeElement($stock)) {
+            // set the owning side to null (unless already changed)
+            if ($stock->getProduct() === $this) {
+                $stock->setProduct(null);
+            }
         }
 
         return $this;

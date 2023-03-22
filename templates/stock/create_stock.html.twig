@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+{% block title %}ADD{% endblock %}
+
+{% block content %}
+{{ form_start(form, { 'attr' : { 'class' : 'form-inline' }}) }}
+
+<div class="row">
+                <div class="col-md-6">
+                        <div class="bd mb-1 bgc-white p-20 sk-bd">
+                            <h4>Restockage  </h4>
+                             
+                            {{ form_widget(form.quantity, {'attr': {'class': 'form-control mb-2 mr-sm-2'}}) }}  
+                            
+                            {{ form_widget(form.product, {'attr': {'class': 'form-control mb-2 mr-sm-2'}}) }}  
+                                            
+                        </div>   
+                </div>                  
+        </div>
+
+
+                    <button type="submit" class="btn btn-warning mr-2">
+                        <i class="ti-save"></i> &nbsp;Enregistrer
+                    </button>
+               
+{{ form_end(form) }}
+{% endblock %}
